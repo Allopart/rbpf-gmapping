@@ -9,12 +9,8 @@
 % PhD in the AUT Group at the Technical University of Denmark
 % adllo@elektro.dtu.dk
 % 
-% 
-% DESCRIPTION
-% Simulation of a robot moving through a determined path in a predefined map and the 
-% resulting occupancy grid of a particle filter which only takes the control commands
-% and true laser scans as inputs
-% 
+DESCRIPTION
+Simulat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Clean up
 clear variables
