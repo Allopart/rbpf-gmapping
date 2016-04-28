@@ -136,7 +136,7 @@ function [xh,pf, P, L] = RBPF(x_true, y, LRS, u, a, pf, Nsamples, resampling_str
                 find_yest=isnan(yest(2,:));
                 yest(:,(find_yest(1,:)==1))=[];
                 ytru(:,(find_yest(1,:)==1))=[];
-                p_zt(h,i) = MeasurementModel(ytru,yest,[1 1]);
+                p_zt(h,i) = Measurement_Model(ytru,yest,[1 1]);
 
                 % Calculate optimal proposal distribution
                 tau_xt(h,i)=abs(p_xt(h,i)*p_zt(h,i));

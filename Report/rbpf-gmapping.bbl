@@ -1,0 +1,45 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Doucet \bgroup et al\mbox.\egroup
+  }{2000}]{Doucet}
+Doucet, A.; de~Freitas, J.; Murphy, K.; and Rusel, S.
+\newblock 2000.
+\newblock Rao-blackwellized particle filtering for dynamic bayesian networks.
+\newblock In {\em Conf. Uncertainty Artif. Intell. Stanford, CA},  173--186.
+
+\bibitem[\protect\citeauthoryear{Doucet, de Freitas, and
+  Gordan}{2001}]{Weights}
+Doucet, A.; de~Freitas, N.; and Gordan, N.
+\newblock 2001.
+\newblock {\em Sequential Monte-Carlo Methods in Practice}.
+\newblock Springer-verlag.
+
+\bibitem[\protect\citeauthoryear{Doucet}{1998}]{optimal_proposal}
+Doucet, A.
+\newblock 1998.
+\newblock On sequential simulation-based methods for bayesian filtering.
+\newblock {\em Univ. Cambridge, Dept. Eng., Signal process. Group, cambridge,
+  UK}.
+
+\bibitem[\protect\citeauthoryear{Grisetti, Stachniss, and
+  Burgard}{2007}]{Cyrill}
+Grisetti, G.; Stachniss, C.; and Burgard, W.
+\newblock 2007.
+\newblock Improved techniques for grid mapping with rao-blackwellized particle
+  filters.
+\newblock In {\em IEEE Trans. Robot.}
+
+\bibitem[\protect\citeauthoryear{Murphy}{1999}]{Murphy}
+Murphy, K.
+\newblock 1999.
+\newblock Bayesian map learning in dynamic environmnets.
+\newblock In {\em Conf. Neural Inf. Process. Syst. Denver, CO},  1015--1021.
+
+\bibitem[\protect\citeauthoryear{Thrun, Burgard, and
+  Fox}{2006}]{ProbabilisticRobotics}
+Thrun, S.; Burgard, W.; and Fox, D.
+\newblock 2006.
+\newblock {\em Probabilistic Robotics}.
+\newblock The MIT Press.
+
+\end{thebibliography}
