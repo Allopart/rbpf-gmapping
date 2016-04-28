@@ -120,7 +120,7 @@ end
 
 %% Grid occupancy initialisation
 Nstep=size(path,1);
-security=1.5;                                   % Initialise the grid 560% bigger than the map actually is
+security=1.2;                                   % Initialise the grid 560% bigger than the map actually is
 xg=max(max(map))*security;                      % Length
 yg=xg;                                          % Width
 L=0.5*ones(yg,xg);                              % Initialise the probability of grid map

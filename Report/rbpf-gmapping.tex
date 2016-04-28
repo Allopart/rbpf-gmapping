@@ -168,6 +168,7 @@ with the normalization factor:
 \end{multline} 
 Now we have a closed-form approximation of the optimal proposal. As shown in \cite{Cyrill}, using the new proposal distribution, the new weights are calculated as:
 \begin{equation}
+\label{Weights}
 w_t^{(i)}=w_{t-1}^{(i)} \cdot \eta^{(i)} = w_{t-1}^{(i)} \cdot \sum_{j=1}^K \tau (x_t)
 \end{equation} 
 
@@ -178,7 +179,7 @@ Another problem is when the scan matcher fails to report a scan conversion. This
 \section{RBPF Adaptive resampling}
 
 The second main difference, this paper presents, with other general particle filters concerns the resampling step. During resampling, particles with low weight are replaced by new ones with higher weight. This is essential because only a finite amount of particles are used to approximate the target distribution; but, if not applied carefully, the resampling can remove good samples and lead to impoverishment of the particle filter. Also, the criterion for deciding when to resample is of utmost importance for a good overall performance.\\
-The approach used in this paper relies in the so-called effective sampling size for target posterior estimation \cite{Liu}. This value was proposed by \cite{Doucet13} to be:
+The approach used in this paper relies in the so-called effective sampling size for target posterior estimation \cite{Liu}. This value was proposed by \cite{Weights} to be:
 \begin{equation}
 N_{eff}= \frac{1}{\sum_{i=1}^N (\bar w^{(i)})^2}
 \end{equation}
@@ -186,20 +187,91 @@ where $\bar w^{(i)}$ is the normalized weight of the particle $i$.\\
 The key idea behind $N_{eff}$ is that the worse the particle approximation is, the larger variance between weights there would be.  If the estimate was perfect, all particles would end up with the same weight value. As presented in \cite{Cyrill}, the resampling step should carried out when the value of $N_{eff}$ drops below $N/2$, where $N$ is the total number of particles.
 
 \section{The RBPF improved algorithm}
-The algorithm \ref{improved_rbpf_algorithm} presents the full schema for the improved RBPF utilized in this paper. The steps are as follows:
+The algorithm \ref{RBPF-SLAM} presents the full schema for the improved RBPF utilized in this paper. The steps are as follows:
 \begin{itemize}
 	\item An initial estimate of each particles position $x_t^{(i)}$ is obtained from the previous pose $x_{t-1}^{(i)}$, the odometry measurements $u_{t-1}$ and a realistic approximation of the errors the odometry might propose.
 	\item A scan matching algorithm, in this case an ICP, is executed between the latest laser scan data $z_t$ and a point cloud derived form the latest map generated for that particle. To calculate the point cloud from the map, only that area inside what would be the region of the laser scanner is evaluated. This saves important resources and does not calculate point clouds in regions that cannot be matched with the laser scan data. The rotational and translational vectors derived through the ICP are used to reconstruct a new pose estimate $\dot x_t^{(i)}$ from the motion model estimate $x_t^{(i)}$. Finally, if the scan matcher fails at converging both point clouds, the pose estimate will remain as the one obtained from the motion model
-	\item A set of sampling points $x_j$ is selected in an interval around $\dot x_t^{(i)}$. The mean and covariance values for creating a Gaussian distribution are calculated as in equations \ref{mu} and \ref{sigma} via a pointwise evaluation of the target proposal. The first half of the target proposal,  $p(x_j|x_{t-1}^{(i)}, u_t)$, is obtained by evaluating the sample $x_j$ in the odometry motion model distribution. The second half of the target distribution, $p(z_t|x_j, m^{(i)})$, is obtained evaluating the observation likelihood for that sample. Several approaches can be taken; this paper has used . In this stage the weighing factor $\eta^{(i)}$ is also computed. 
+	\item A set of sampling points $x_j$ is selected in an interval around $\dot x_t^{(i)}$. The mean and covariance values for creating a Gaussian distribution are calculated as in equations \ref{mu} and \ref{sigma} via a pointwise evaluation of the target proposal. The first half of the target proposal,  $p(x_j|x_{t-1}^{(i)}, u_t)$, is obtained by evaluating the sample $x_j$ in the odometry motion model distribution. The second half of the target distribution, $p(z_t|x_j, m^{(i)})$, is obtained evaluating the observation likelihood for that sample. Several approaches can be taken; this paper has used a point to point comparison between the true scan and the estimated scan a robot in the estimated position in the generated map would see. In this stage the weighing factor $\eta^{(i)}$ is also computed. 
+	\item A new final pose estimate for particle $(i)$ is drawn from the Gaussian approximation $\mathcal{N} (\mu_t^{(i)}, \Sigma_t^{(i)})$ of the improved proposal.
+	\item Update importance weights as in equation \ref{Weights}
+	\item The particles map $m_i$ is updated with the final estimated position $\dot x_t^{(i)}$ and the laser scan data $z_t$.
+	\item The resampling stage is carried out depending on the value of $N_{eff}$.
 \end{itemize}
 
+\begin{algorithm}
+	\caption{Improved techniques for RBPF in grid mapping}\label{RBPF-SLAM}
+	\begin{algorithmic}[1]
+		\Procedure{RBPF-SLAM ($x_{t-1}$, $z_t$, $u_t$, $m_{t-1}$)}{}
+		\State $ \mathcal{S}_{t-1}: \text{sample set of the previous time step} $
+		\For {$\mathcal{S}_{t-1}^{(i)} \in \mathcal{S}_{t-1}$}
+		\State $ < x_{t-1}^{(i)}, w_{t-1}^{(i)}, m_{t-1}^{(i)} > = \mathcal{S}_{t-1}^{(i)}$
+		\State $ \text{// initial pose estimate} $
+		\State $ x_t^{(i)} = x_{t-1}^{(i)} \oplus u_t$
+		\State $ \text{// scan matching}$
+		\State $ \dot x_t^{(i)} = \text{argmax}_x p(x|m_{t-1}^{(i)}, z_t. x_t^{(i)})$
+		\If {$dot x_t^{(i)}$ = failure}
+		\State $ x_t^{(i)} \sim  p(x_t|x_{t-1}^{(i)}, u_{t-1})$
+		\State $w_t^{(i)}=w_{t-1}^{(i)} \cdot p(z_t|x_t, m^{(i)}) $
+		\Else
+		\State $ \text{// sample around node} $ 
+		\For {$k=1,...,K$}
+		\State $ x_k \sim \left\{ x_j || x_j - \dot x_t^{(i)}| < \Delta \right\} $
+		\EndFor
+		\State $ \text{// compute gaussian}$
+		\For {all $ x_j \in \left\{ x_1,...,x_K \right\} $}
+		\State $ \mu_t^{(i)}  = \mu_t^{(i)} + x_j \cdot p(z_t|m_{t-1}^{(i)}, x_j) \cdot p(x_j|x_{t-1}^{(i)}, u_{t-1})$
+		\State $ \eta^{(i)}  = \eta^{(i)} + p(z_t|m_{t-1}^{(i)}, x_j) \cdot p(x_j|x_{t-1}^{(i)}, u_{t-1})$
+		\EndFor
+		\State $\mu_t^{(i)}  = \mu_t^{(i)} / \eta^{(i)} $
+		\State $ \Sigma_t^{(i)}=0$
+		\For {all $ x_j \in \left\{ x_1,...,x_K \right\} $}
+		\State $ \Sigma_t^{(i)}= \Sigma_t^{(i)} + p(z_t|m_{t-1}^{(i)}, x_j) \cdot p(x_j|x_{t-1}^{(i)}, u_{t-1}) \cdot (x_j - \mu_t^{(i)})(x_j - \mu_t^{(i)})^T  $
+		\EndFor
+		\State $ \Sigma_t^{(i)}= \Sigma_t^{(i)}/ \eta*{(i)}$
+		\State $ \text{// sample new pose from gaussian}$
+		\State $ x_t^{(i)} \sim \mathcal{N} (\mu_t^{(i)}, \Sigma_t^{(i)}) $
+		\State $ \text{// update importance weights}$
+		\State $ w_t^{(i)}=w_{t-1}^{(i)} \cdot \eta^{(i)} $
+		\EndIf
+		\State $ \text{// update map}$
+		\State $ m_t^{(i)} = \text{Occupancy\_Grid\_Mapping} (m_{t-1}^{(i)}, x_t, z_t)$
+		\State $ \text{// update sample set}$
+		\State $ \mathcal{S}_t = \mathcal{S}_t \cup  \left\{ < x_{t-1}^{(i)}, w_{t-1}^{(i)}, m_{t-1}^{(i)} > \right\} $
+		\EndFor
+		\State $ N_{eff} = \frac{1}{\sum_{i=1}^N (\bar w^{(i)})^2} $
+		\If {$ N_{eff} < N/2$}
+		\State $\mathcal{S}_t = <text{resample} \mathcal{S}_t $
+		\EndIf
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
 
+\section{Simulations and results}
+The  \textit{Matlab} code to which this paper refers to works with a simulated RBPF-SLAM. The user is able to create its own map (Figure \ref{initial_map}), generate a path which the robot should follow, adjust a series of parameters related to the motion model of the robot or related to the particle filter itself, and simulate the results for a RBPF-SLAM (Figure \ref{end_map}).
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/initial_map}
+	\caption{Map created by the user}
+	\label{initial_map}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.37\textwidth]{figures/end_map}
+	\caption{occupancy grid map generated after running RBPF-SLAM}
+	\label{end_map}
+\end{figure}
 
+The resulting grid map will have a resolution of 10$\frac{cm^2}{cell}$ \\
 
+The errors generated via this schema can be seen in Figure \ref{error_estimation}. They are minimal except for a particular point in which \textit{theta} overshoots. This is definitely due to misalignments in \textit{theta} for the case $0^o = 360^o$.
 
-
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.37\textwidth]{figures/error_estimation}
+	\caption{Error between the real and estimated \textit{x}, \textit{y} and \textit{theta} values}
+	\label{error_estimation}
+\end{figure}
 
 % References and end of paper
 \bibliographystyle{aaai}

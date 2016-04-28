@@ -29,6 +29,13 @@ Grisetti, G.; Stachniss, C.; and Burgard, W.
   filters.
 \newblock In {\em IEEE Trans. Robot.}
 
+\bibitem[\protect\citeauthoryear{liul}{1996}]{Liu}
+liul, J.
+\newblock 1996.
+\newblock Metropolized independant sampling with comparisons to rejection
+  sampling and importance sampling.
+\newblock In {\em Statist. Comput., vol 6},  113--119.
+
 \bibitem[\protect\citeauthoryear{Murphy}{1999}]{Murphy}
 Murphy, K.
 \newblock 1999.

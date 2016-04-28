@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.1)  28 APR 2016 12:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.1)  28 APR 2016 16:54
 entering extended mode
 **./rbpf-gmapping.tex
 (rbpf-gmapping.tex
@@ -550,46 +550,85 @@ x[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x[]; u[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m
 /it/10 \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 )$ []  
  []
 
-
-LaTeX Warning: Citation `Liu' on page 3 undefined on input line 181.
-
-
-LaTeX Warning: Citation `Doucet13' on page 3 undefined on input line 181.
-
 [3 <./figures/motion_model_odometry.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 223--224
+[] $\OML/cmm/m/it/10 [] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 [] \OT1/cmr/m/n/10
+ + \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OMS/cmsy/m/n/10 j\OM
+L/cmm/m/it/10 m[]; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 $
+ []
 
-LaTeX Warning: Reference `improved_rbpf_algorithm' on page 4 undefined on input
- line 189.
 
-(rbpf-gmapping.bbl) [4] (rbpf-gmapping.aux)
+Underfull \hbox (badness 7540) in paragraph at lines 228--229
+[] $\OT1/cmr/m/n/10 [] = [] + \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/i
+t/10 z[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 m[]; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/
+m/n/10 $
+ []
 
-LaTeX Warning: There were undefined references.
 
- ) 
+Overfull \hbox (2.37886pt too wide) in paragraph at lines 237--238
+[] $\OML/cmm/m/it/10 m[] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 m[]; x[]; z[]\OT
+1/cmr/m/n/10 )$ 
+ []
+
+<figures/initial_map.png, id=22, 366.77025pt x 285.4665pt>
+File: figures/initial_map.png Graphic file (type png)
+
+<use figures/initial_map.png>
+Package pdftex.def Info: figures/initial_map.png used on input line 254.
+(pdftex.def)             Requested size: 202.3529pt x 157.4949pt.
+
+<figures/end_map.png, id=24, 682.34924pt x 414.348pt>
+File: figures/end_map.png Graphic file (type png)
+
+<use figures/end_map.png>
+Package pdftex.def Info: figures/end_map.png used on input line 260.
+(pdftex.def)             Requested size: 187.17682pt x 113.65837pt.
+
+Underfull \hbox (badness 1152) in paragraph at lines 261--261
+[]\OT1/ptm/m/n/10 Figure 3: oc-cu-pancy grid map gen-er-ated af-ter run-ning
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--266
+
+ []
+
+[4 <./figures/initial_map.png> <./figures/end_map.png>]
+<figures/error_estimation.png, id=31, 421.575pt x 316.18124pt>
+File: figures/error_estimation.png Graphic file (type png)
+
+<use figures/error_estimation.png>
+Package pdftex.def Info: figures/error_estimation.png used on input line 271.
+(pdftex.def)             Requested size: 187.17682pt x 140.3842pt.
+ (rbpf-gmapping.bbl) [5 <./figures/error_estimation.png (PNG copy)>] (rbpf-gmap
+ping.aux) ) 
 Here is how much of TeX's memory you used:
- 10327 strings out of 493634
- 184951 string characters out of 3135240
- 219986 words of memory out of 3000000
- 13656 multiletter control sequences out of 15000+200000
+ 10352 strings out of 493634
+ 185464 string characters out of 3135240
+ 225041 words of memory out of 3000000
+ 13678 multiletter control sequences out of 15000+200000
  20381 words of font info for 37 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,10n,40p,10386b,276s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/fontname/8r
-.enc}<C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmmi10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/adllo/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/adllo/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/adl
-lo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-<C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/t
-imes/utmb8a.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/u
-rw/times/utmr8a.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/urw/times/utmri8a.pfb>
-Output written on rbpf-gmapping.pdf (4 pages, 161749 bytes).
+ 36i,10n,40p,10386b,280s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/fo
+ntname/8r.enc}<C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/adllo/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/adllo/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/
+adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pf
+b><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmr5.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/adllo/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/adllo/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/adllo/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/adll
+o/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/
+adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on rbpf-gmapping.pdf (5 pages, 270294 bytes).
 PDF statistics:
- 57 PDF objects out of 1000 (max. 8388607)
+ 78 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
