@@ -36,6 +36,13 @@ liul, J.
   sampling and importance sampling.
 \newblock In {\em Statist. Comput., vol 6},  113--119.
 
+\bibitem[\protect\citeauthoryear{Montemerlo \bgroup et al\mbox.\egroup
+  }{2002}]{Carmen}
+Montemerlo, M.; Roy, N.; Hahnel, D.; Thrun, S.; Stachniss, C.; and Glover, J.
+\newblock 2002.
+\newblock {\em CARMEN - The Carnegie Mellon Robot Navigation Toolkit}.
+\newblock [Online] http://carmen.sourceforge.net.
+
 \bibitem[\protect\citeauthoryear{Murphy}{1999}]{Murphy}
 Murphy, K.
 \newblock 1999.

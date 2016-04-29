@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.1)  28 APR 2016 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.1)  29 APR 2016 10:17
 entering extended mode
 **./rbpf-gmapping.tex
 (rbpf-gmapping.tex
@@ -476,73 +476,82 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 31.
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+Underfull \hbox (badness 10000) in paragraph at lines 43--44
 \OT1/ptm/m/n/10 As pre-sented by  ( Mur-phy 1999), the key idea
  []
 
 
-Underfull \hbox (badness 7397) in paragraph at lines 53--54
+Underfull \hbox (badness 7397) in paragraph at lines 43--44
 \OT1/ptm/m/n/10 of RBPF-SLAM is to es-ti-mate the joint pos-te-rior
  []
 
 
-Underfull \hbox (badness 5548) in paragraph at lines 53--54
+Underfull \hbox (badness 5548) in paragraph at lines 43--44
 $\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; m\OMS/cmsy/m/n/10 j\O
 ML/cmm/m/it/10 z[]; u[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/10 . In other words, the 
 al-go-rithm
  []
 
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 51.
 
-Underfull \hbox (badness 1331) in paragraph at lines 53--54
-\OT1/ptm/m/n/10 mea-sure-ments ($\OML/cmm/m/it/10 u$\OT1/ptm/m/n/10 ). This pos
--te-rior can be fac-tor-ized as
+Underfull \hbox (badness 1024) in paragraph at lines 55--57
+\OT1/ptm/m/n/10 where $\OML/cmm/m/it/10 v[]$ \OT1/ptm/m/n/10 de-fines the \OT1/
+ptm/m/it/10 trans-la-tional ve-loc-ity \OT1/ptm/m/n/10 and $\OML/cmm/m/it/10 w[
+]$ \OT1/ptm/m/n/10 the
  []
 
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
+
+Underfull \hbox (badness 1502) in paragraph at lines 55--57
+\OT1/ptm/m/n/10 cific po-si-tion $\OML/cmm/m/it/10 x[]$ \OT1/ptm/m/n/10 be-ing 
+ful-filled af-ter one spe-cific ini-
+ []
+
+
+Underfull \hbox (badness 1147) in paragraph at lines 55--57
+\OT1/ptm/m/n/10 tial po-si-tion $\OML/cmm/m/it/10 x[]$ \OT1/ptm/m/n/10 and con-
+trol com-mand $\OML/cmm/m/it/10 u[]$\OT1/ptm/m/n/10 , and sam-
+ []
+
 [1{C:/Users/adllo/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
 [] $\OML/cmm/m/it/10 l[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 l[] \OT1/cmr/m/n/10
  +$
  []
 
 
-Underfull \hbox (badness 1521) in paragraph at lines 90--91
+Underfull \hbox (badness 1521) in paragraph at lines 87--88
 []\OT1/ptm/b/n/10 pro-ce-dure \OT1/ptm/m/sc/10 In-verse[]Range[]Sensor[]Model (
 $\OML/cmm/m/it/10 m[]$\OT1/ptm/m/sc/10 ,
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 112.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 109.
 
 ("C:\Users\adllo\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 112.
-<figures/motion_model_odometry.png, id=15, 421.575pt x 316.18124pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 109.
+[2] <figures/motion_model_odometry.png, id=18, 421.575pt x 316.18124pt>
 File: figures/motion_model_odometry.png Graphic file (type png)
 
 <use figures/motion_model_odometry.png>
 Package pdftex.def Info: figures/motion_model_odometry.png used on input line 1
-36.
+33.
 (pdftex.def)             Requested size: 252.94499pt x 189.7102pt.
 
-Overfull \hbox (13.55061pt too wide) in paragraph at lines 136--137
+Overfull \hbox (13.55061pt too wide) in paragraph at lines 133--134
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[2]
 Missing character: There is no Â in font ptmr7t!
 Missing character: There is no ´ in font ptmr7t!
 
-Overfull \hbox (9.2753pt too wide) detected at line 168
+Overfull \hbox (9.2753pt too wide) detected at line 166
  []$[]  \OML/cmm/m/it/10 [] \OT1/cmr/m/n/10 = [] \OML/cmm/m/it/10 p\OT1/cmr/m/
 n/10 (\OML/cmm/m/it/10 z[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 m[]; x[]\OT1/cmr/m
 /n/10 ) \OMS/cmsy/m/n/10  \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
@@ -551,21 +560,21 @@ x[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x[]; u[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m
  []
 
 [3 <./figures/motion_model_odometry.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 223--224
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
 [] $\OML/cmm/m/it/10 [] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 [] \OT1/cmr/m/n/10
  + \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OMS/cmsy/m/n/10 j\OM
 L/cmm/m/it/10 m[]; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 $
  []
 
 
-Underfull \hbox (badness 7540) in paragraph at lines 228--229
+Underfull \hbox (badness 7540) in paragraph at lines 226--227
 [] $\OT1/cmr/m/n/10 [] = [] + \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/i
 t/10 z[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 m[]; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/
 m/n/10 $
  []
 
 
-Overfull \hbox (2.37886pt too wide) in paragraph at lines 237--238
+Overfull \hbox (2.37886pt too wide) in paragraph at lines 235--236
 [] $\OML/cmm/m/it/10 m[] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 m[]; x[]; z[]\OT
 1/cmr/m/n/10 )$ 
  []
@@ -574,61 +583,81 @@ Overfull \hbox (2.37886pt too wide) in paragraph at lines 237--238
 File: figures/initial_map.png Graphic file (type png)
 
 <use figures/initial_map.png>
-Package pdftex.def Info: figures/initial_map.png used on input line 254.
+Package pdftex.def Info: figures/initial_map.png used on input line 252.
 (pdftex.def)             Requested size: 202.3529pt x 157.4949pt.
 
 <figures/end_map.png, id=24, 682.34924pt x 414.348pt>
 File: figures/end_map.png Graphic file (type png)
 
 <use figures/end_map.png>
-Package pdftex.def Info: figures/end_map.png used on input line 260.
+Package pdftex.def Info: figures/end_map.png used on input line 258.
 (pdftex.def)             Requested size: 187.17682pt x 113.65837pt.
 
-Underfull \hbox (badness 1152) in paragraph at lines 261--261
+Underfull \hbox (badness 1152) in paragraph at lines 259--259
 []\OT1/ptm/m/n/10 Figure 3: oc-cu-pancy grid map gen-er-ated af-ter run-ning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 263--264
 
  []
 
-[4 <./figures/initial_map.png> <./figures/end_map.png>]
-<figures/error_estimation.png, id=31, 421.575pt x 316.18124pt>
+[4 <./figures/initial_map.png>]
+<figures/error_estimation.png, id=30, 421.575pt x 316.18124pt>
 File: figures/error_estimation.png Graphic file (type png)
 
 <use figures/error_estimation.png>
-Package pdftex.def Info: figures/error_estimation.png used on input line 271.
+Package pdftex.def Info: figures/error_estimation.png used on input line 269.
 (pdftex.def)             Requested size: 187.17682pt x 140.3842pt.
- (rbpf-gmapping.bbl) [5 <./figures/error_estimation.png (PNG copy)>] (rbpf-gmap
-ping.aux) ) 
+ (rbpf-gmapping.bbl
+Underfull \vbox (badness 1715) has occurred while \output is active []
+
+ [5 <./figures/end_map.png> <./figures/error_estimation.png (PNG copy)>]
+Underfull \hbox (badness 2717) in paragraph at lines 41--45
+\OT1/ptm/m/n/10 niss, C.; and Glover, J.  2002.  \OT1/ptm/m/it/10 CAR-MEN - The
+
+ []
+
+
+Underfull \hbox (badness 1831) in paragraph at lines 41--45
+\OT1/ptm/m/it/10 Carnegie Mel-lon Robot Nav-i-ga-tion Toolkit\OT1/ptm/m/n/10 . 
+ [On-line]
+ []
+
+) [6
+
+] (rbpf-gmapping.aux) ) 
 Here is how much of TeX's memory you used:
- 10352 strings out of 493634
- 185464 string characters out of 3135240
- 225041 words of memory out of 3000000
- 13678 multiletter control sequences out of 15000+200000
+ 10353 strings out of 493634
+ 185472 string characters out of 3135240
+ 227076 words of memory out of 3000000
+ 13679 multiletter control sequences out of 15000+200000
  20381 words of font info for 37 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  36i,10n,40p,10386b,280s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/fo
-ntname/8r.enc}<C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/adllo/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/adllo/AppDat
-a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/
-adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pf
+{C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/
+enc/dvips/fontname/8r.enc}<C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/adllo/AppData/Local/Programs/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/adllo/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/
+adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pf
 b><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmr5.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/adllo/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/adllo/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/adllo/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/adll
-o/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/
-adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on rbpf-gmapping.pdf (5 pages, 270294 bytes).
+/cm/cmmi7.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/adllo/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/adllo/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/adllo/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Us
+ers/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C
+:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pf
+b><C:/Users/adllo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on rbpf-gmapping.pdf (6 pages, 275482 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
+ 81 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

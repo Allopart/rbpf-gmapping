@@ -29,37 +29,34 @@
 
 
 \begin{abstract}
-\iffalse
-A short summary of the paper and its main results/insights. Should preferably
-be less than 150 words.
-\fi
 Rao-Blackwellized Particle filters have been introduced in simultaneous localization and mapping (SLAM) effectively in the past years. Improved techniques have helped reduce the number of particles needed and allowed a faster and more robust solution. These solutions can be seen, and used, in the C++ ROS \textit{gmapping} package. This paper presents the conversion to a simpler but easy-to-understand MatLab implementation and will describe the RBPF-SLAM principle in a similar manner.
 
 \end{abstract}
 
 \section{Introduction}
-\iffalse
-What problem are you trying to solve? Why is this important? What
-are the main results/accomplishments/highlights of the paper. Since the reader is
-assumed to be familiar with the details and goal of the programming project, this
-section will probably be fairly short. But you can use it to briefly describe the type of
-solution you have chosen and why.
-\fi
+
 One of the clearest functionalities of mobile robots is building maps of its surroundings and navigating through them; this is often referred to as SLAM, Simultaneous Localization and Mapping. There exists, however, certain difficulties when implementing SLAM, mainly, for a robot to localize (know its true position), a very precise map has to be built before; but, for a very precise map to be built, a robot must know exactly where it is. Friction, control loss or small obstacles are often the cause of a bad odometry which leads to a poor estimate of the true position. The Rao-Blackwellized Particle filter (as shown in ~\cite{Doucet} and ~\cite{Murphy}) solves this issue by generating estimates of the possible position (particles) and giving them a weight. Those particles that have a higher weight, because their estimate matches better the reality, will survive, and the rest will die out in the next generation. To keep a continuous amount of particles and not let all of them die out, resampling stages are carried out where those surviving particles reproduce and keep the particle count constant. It is evident that the more particles used, the more possible descriptions of the reality one has and the higher probability of having at least one particle which is almost perfect. This also induces a higher computational necessity and stops the solution from becoming a real-time application.\\
-The real issue is therefore weighing these particles to know how close they are to the reality. This is known as the \textit{proposal distribution}, and in the latter iterations of the RBPF-SLAM solution, optimal techniques have been developed to obtain a more accurate representation whilst keeping the particle count to a minimum.\\
-In summary, what the RBPF-SLAM algorithm does is given an initial estimate of the true pose, it will use the high precision of a laser scan and the latest map generation and converge the estimate to the true position. This leads to a more accurate map representation and a considerable reduction in errors and number of particles.
+The real issue is, therefore, weighing these particles to know how close they are to the reality. This is known as the \textit{proposal distribution} $\pi$, and in the latter iterations of the RBPF-SLAM solution, optimal techniques have been developed to obtain a more accurate representation, whilst keeping the particle count to a minimum.\\
+In summary, what the RBPF-SLAM algorithm does is given an initial estimate of the true pose, it will use the high precision of a laser scan and the latest map generation to converge the estimate to the true position. This leads to a more accurate map representation and a considerable reduction in errors and number of particles.
 
 \section{RBPF joint posterior}
-As presented by ~\cite{Murphy}, the key idea of RBPF-SLAM is to estimate the joint posterior $p(x_{1:t},m|z_{1:t}, u_{1:t-1})$. In other words, the algorithm should compute the true (or as close as possible) position ($x$) of the robot and a map ($m$) for every iteration, given solely the laser scan data ($z$) and the odometry measurements ($u$). This posterior can be factorized as follows:
+As presented by ~\cite{Murphy}, the key idea of RBPF-SLAM is to estimate the joint posterior $p(x_{1:t},m|z_{1:t}, u_{1:t-1})$. In other words, the algorithm should compute the true (or as close as possible) position ($x$) of the robot and a map ($m$) for every iteration (on a per particle basis), given solely the laser scan data ($z$) and the odometry measurements ($u$). This posterior can be factorized as follows:
 
 \begin{multline}
 p(x_{1:t},m|z_{1:t}, u_{1:t-1}) = \\ p(m|x_{1:t},z_{1:t}) \cdot p(x_{1:t}|z_{1:t}, u_{1:t-1})
 \end{multline}
 
 This allows us to estimate the position of the robot using the logged odometry and the laser scan data, and then use this position and the laser data again to generate more parts of the map. Thus, the generated map depends heavily on the estimate of the position. This technique is known as Rao-Blackwellization.
+
+\subsection{Odometry distribution}
+The odometry distribution used in this paper implements the approach  \textit{Velocity Motion Model} presented in \cite{ProbabilisticRobotics} (pages 121-132), where the control is defined as:
+\begin{equation*}
+u_t = \left\{ v_t w_t \right\}
+\end{equation*}
+where $v_t$ defines the \textit{translational velocity} and $w_t$ the \textit{rotational velocity}. Deriving the probability of one specific position $x_t$ being fulfilled after one specific initial position $x_{t-1}$ and control command $u_t$, and sampling from said motion model, are depicted in algorithm \textbf{motion\_model\_velocity($x_t$,$u_t$,$x_{t-1}$)} (page 123) and algorithm \textbf{sample\_motion\_model\d_velocity($u_t$,$x_{t-1}$)} (page 124), respectively.
 \subsection{Posterior over maps}
-The posterior over maps ($p(m|x_{1:t},z_{1:t})$) can be computed analytically using several methods. This paper used the approach presented by ~\cite{ProbabilisticRobotics} known as \textit{Occupancy grid mapping} (Algorithm \ref{OGM}) and the \textit{Inverse sensor model} (pages 284-292) to generate a 2-D floor plan occupancy grid map.\\
-Therefore, a map \textit{m} is partitioned into finitely many grid cells $m = {m_i}$, where each cell contains a value that refers to the probability of it being occupied ($p(m_i)$) with values ranging from '0' (free) to '1' (fully occupied). The posterior over maps can then be approximated as the product of its marginals.
+The posterior over maps $p(m|x_{1:t},z_{1:t})$ can be computed analytically using several methods. This paper used the approach presented by ~\cite{ProbabilisticRobotics} known as \textit{Occupancy grid mapping} (Algorithm \ref{OGM}) and the \textit{Inverse sensor model} (pages 284-292) to generate a 2-D floor plan occupancy grid map.\\
+Therefore, a map \textit{m} is partitioned into finitely many grid cells $m_i$, where each cell contains a value that refers to the probability of it being occupied $p(m_i)$ with values ranging from '0' (free) to '1' (fully occupied). The posterior over maps can then be approximated as the product of its marginals.
 \begin{equation*} 
 p(m|x_{1:t},z_{1:t}) = \prod_{i} p(m_i|x_{1:t},z_{1:t})
 \end{equation*}
@@ -71,7 +68,7 @@ and that the probability ration can be easily recovered from the \textit{log-odd
 \begin{equation*} 
 p(m_i | z_{1:t}, x_{1:t})= 1- \frac{1}{1+exp(l_{t,i})}
 \end{equation*}
-Finally, the algorithm makes use of the variables $l_0$, $l_{occupied}$ and $l_{free}$ which can be adjusted as one pleases. The values applied for this simulation are 0.5, 1 and -1. Also, $\alpha$ makes reference to the average width of walls; and $\beta$ is the width of the sensor beam. Considering that the simulation uses one cell to represent 10$cm^2$, $\alpha$ is set to be equal to 2 (thus 20 cm) and $\beta$ will be equal to 0.1.
+Finally, the algorithm makes use of the variables $l_0$, $l_{occupied}$ and $l_{free}$ which can be adjusted as one pleases. The values applied for this simulation are 0.5, 1 and -1. Also, $\alpha$ makes reference to the average width of walls; and $\beta$ is the width of the sensor beam. Considering that the simulation uses one cell to represent 10$cm^2$, $\alpha$ is set to be equal to 2 (thus 20 $cm^2$) and $\beta$ will be equal to 0.1.
 
 \begin{algorithm}
 	\caption{Complete Occupancy Grid Mapping}\label{OGM}
@@ -106,19 +103,19 @@ Finally, the algorithm makes use of the variables $l_0$, $l_{occupied}$ and $l_{
 \end{algorithm}
 
 \subsection{Posterior over potential trajectories}
-The posterior over potential trajectories $p(x_{1:t}|z_{1:t}, u_{1:t-1}$ will be solved applying a particle filter. This means that one particle will represent one potential trajectory over one time step and will also generate its own map.\\
-Usually, a non-optimal particle filter called SIR (sampling importance resampling) is applied. this filter follows 4 main steps:
+The posterior over potential trajectories $p(x_{1:t}|z_{1:t}, u_{1:t-1})$ will be solved applying a particle filter. This means that one particle will represent one potential trajectory over one time step while generating its own map.\\
+Usually, a non-optimal particle filter called SIR (sampling importance resampling) is applied. This filter follows 4 main steps:
 \begin{itemize}
-	\item \textit{Sampling}: The next generation of particles $x_t^{(i)}$ is obtained from the previous generation $x_{t-1}^{(i)}$ by sampling form the proposal distribution $\pi$. Normally, a probabilistic odometry motion model is used here.
-	\item \textit{Importance weighing}: each particle is assigned with a weight $w_t^{(i)}$ according to the importance sampling principle:
+	\item \textit{Sampling}: The next generation of particles $x_t^{(i)}$ is obtained from the previous generation $x_{t-1}^{(i)}$ by sampling from the proposal distribution $\pi$. Normally, a probabilistic odometry motion model is used here. This paper will later suggest improved techniques for achieving an optimal proposal distribution.
+	\item \textit{Importance weighing}: Each particle is assigned with a weight $w_t^{(i)}$ according to the importance sampling principle:
 	\begin{equation}
 		w_t^{(i)}=\frac{p(x_{1:t}^{(i)}|z_{1:t}, u_{1:t-1})}{\pi(x_{1:t}^{(i)}|z_{1:t}, u_{1:t-1})}
 	\end{equation}
 	which incorporates all observations and positions up until that specific point in time.
-	\item \textit{Resampling}: New particles are drawn which replace the old ones depending on their weight. This keeps the particle count constant. the new generation of particles have all the same initial weight.
-	\item \textit{Map estimation}: for every particle, a map is generated according to the approach presented before (Algorithm \ref{OGM}).
+	\item \textit{Resampling}: New particles are drawn which replace the old ones depending on their weight. This keeps the particle count constant. The new generation of particles have all the same initial weight.
+	\item \textit{Map estimation}: For every particle, a map is generated according to the approach presented before (Algorithm \ref{OGM}).
 \end{itemize}
-One might rapidly notice that this filter requires a trajectory weight evaluation after every observation/time step. hence, this schema becomes highly inefficient over time as trajectories grow. \cite{Weights}  obtained a recursive formulation to compute the importance weights, which allows the calculation of the next weight based on the previous one (and not having to calculate over and over again all weights until that point):
+One might rapidly notice that this filter requires a trajectory weight evaluation after every observation/time step. Hence, this schema becomes highly inefficient over time as trajectories grow. \cite{Weights}  obtained a recursive formulation to compute the importance weights, which allows the calculation of the next weight based on the previous one (and not having to calculate over and over again all weights until that point):
 \begin{equation}
 \label{recursiveweights}
 	w_t^{(i)}= \frac{p(z_t|m_{t-1}^{(i)}, x_t^{(i)})p(x_t^{(i)}|x_{t-1}^{(i)}, u_{t-1})}{\pi(x_t | x_{1:t-1}^{(i)}, z_{1:t},u_{1:t-1})} \cdot w_{t-1}^{(i)}
@@ -126,7 +123,7 @@ One might rapidly notice that this filter requires a trajectory weight evaluatio
 Generic particle particle filters rely heavily on the recursive structure of equation \ref{recursiveweights}, whilst leaving open what the proposal distribution will be and when the resampling should take place. This paper will focus on the improved techniques presented in \cite{Cyrill} to obtain an optimal proposal distribution based on both odometry and sensor data.
 
 \section{RBPF Improved proposal}
-As described previously, one needs to draw particles from the proposal distribution $\pi$ to obtain an estimate on the next generation of particles. logically, the more accurate the proposal is, the better the end result of the estimation. typically, particle filters use the odometry proposal distribution because it is easily computed and replacing said odometry distribution in equation \ref{recursiveweights} yields a very simple weight calculation:
+As described previously, one needs to draw particles from the proposal distribution $\pi$ to obtain an estimate on the next generation of particles. Logically, the more accurate the proposal is, the better the end result of the estimation. Typically, particle filters use the odometry proposal distribution because it is easily computed and replacing said odometry distribution in equation \ref{recursiveweights} yields a very simple weight calculation:
 \begin{equation}
 w_t^{(i)}= p(z_t|m_{t-1}^{(i)}, x_t^{(i)}) \cdot w_{t-1}^{(i)}
 \end{equation}
@@ -134,7 +131,7 @@ However, this approach leads to a suboptimal result. Specifically because the pr
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/motion_model_odometry}
-	\caption{Odometry proposal distribution for a 1 meter command}
+	\caption{Odometry proposal distribution for a command $u_t = [10 0]$. The colors represent the probability of the robot being in that position after running the specified command}
 	\label{odometry_motion_model}
 \end{figure}
 Therefore, integrating the sensor data $z_t$ into the proposal will focus the sampling only in the meaningful regions of the observation likelihood. The resulting distribution, according to \cite{optimal_proposal} is as follows: 
@@ -147,13 +144,14 @@ It is common practice to redefine the target distribution in equation \ref{impro
 \tau (x_t)= p(z_t|x_t, m^{(i)})p(x_t|x_{t-1}^{(i)}, u_t)
 \end{equation*} 
 
-The major problem this approach has with grid maps is that the closed-form approximation of the proposal is not available due to an unpredictable shape of the observation likelihood function.\\ This could be solve applying an \textit{adaptive} particle filter which samples potential poses $x_j$ from the motion model and then weights them through the observation likelihood to obtain an approximation of the optimal proposal. Since the observation likelihood is typically peaked in very small areas, a dense sampling is necessary to capture correctly the peak, leading to a sub-optimal proposal, much like the motion model, because of its high computational requirements. Thus this paper will not pursue this approach.\\
+The major problem this approach has with grid maps is that the closed-form approximation of the proposal is not available due to an unpredictable shape of the observation likelihood function.\\ This could be solved applying an \textit{adaptive} particle filter which samples potential poses $x_j$ from the motion model and then weights them through the observation likelihood to obtain an approximation of the optimal proposal. Since the observation likelihood is typically peaked in very small areas, a dense sampling is necessary to capture correctly the peak, leading to a sub-optimal proposal, much like the motion model, because of its high computational requirements. Thus this paper will not pursue this approach.\\
 Another way of solving this major issue is by taking into consideration that the observation likelihood typically has only one maxima allowing us to sample around this maxima and avoiding other less meaningful regions. Specifically, the posterior $p(x_t|x_{t-1}^{(i)}, m^{(i)}, z_t, u_t)$ is locally approximated around the maxima of the observation likelihood via a \textit{scan matching} procedure. 
 
 \subsection{Scan matching approach}
 This approach has a series of steps:\\
-Initially, the next generation of particles is sampled from the odometry distribution. These particles are then approximated to the meaningful area of the observation likelihood via a \textit{Scan matching} method. In this process, the current scan data $z_t$ is compared to the particle´s map generated up until this point $m_i$ to converge the initial guess of the particles position to one that is closer to the reality. The algorithm used in this paper is known as ICP (Iterative Closest Point) which returns translational and rotational vectors that are applied to $x_t$ to reach a better position estimate. The algorithm takes into account two sets of point clouds and iteratively overlays them by minimizing the squares error.\\
-We now want to sample around this new estimated position. To do so, first a Gaussian has to be determined around it. To calculate the mean $\mu^{(i)}$ and the variance $\Sigma^{(i)}$ we also take into account the odometry information:
+Initially, the next generation of particles is sampled from the odometry distribution.
+These particles are then approximated to the meaningful area of the observation likelihood via a \textit{Scan matching} method. In this process, the current scan data $z_t$ is compared to the particle´s map generated up until this point $m_i$ to converge the initial guess of the particles position to one that is closer to the reality. The algorithm used in this paper is known as ICP (Iterative Closest Point) which returns translational and rotational vectors that are applied to $x_t$ to reach a better position estimate. The algorithm takes into account two sets of point clouds and iteratively overlays them by minimizing the squares error.\\
+It is necessary to sample around this new estimated position. To do so, first a Gaussian has to be determined around it. To calculate the mean $\mu^{(i)}$ and the variance $\Sigma^{(i)}$ we also take into account the odometry information:
 \begin{equation}
 \label{mu}
 \mu^{(i)}= \frac{1}{\eta^{(i)}}\cdot \sum_{j=1}^K x_j \cdot p(z_t|m_{t-1}^{(i)}, x_j) \cdot p(x_j|x_{t-1}^{(i)}, u_{t-1})
@@ -162,7 +160,7 @@ We now want to sample around this new estimated position. To do so, first a Gaus
 \label{sigma}
  \Sigma_t^{(i)}= \frac{1}{\eta^{(i)}}\cdot \sum_{j=1}^K p(z_t|m_{t-1}^{(i)}, x_j) \cdot p(x_j|x_{t-1}^{(i)}, u_{t-1}) \\ \cdot (x_j - \mu_t^{(i)})(x_j - \mu_t^{(i)})^T 
 \end{multline} 
-with the normalization factor:
+with the normalization factor being:
 \begin{multline}
 \eta^{(i)}= \sum_{j=1}^K p(z_t|m_{t-1}^{(i)}, x_j) \cdot p(x_j|x_{t-1}^{(i)}, u_{t-1}) =\sum_{j=1}^K \tau (x_t)
 \end{multline} 
@@ -174,7 +172,7 @@ w_t^{(i)}=w_{t-1}^{(i)} \cdot \eta^{(i)} = w_{t-1}^{(i)} \cdot \sum_{j=1}^K \tau
 
 
 The main advantage of the improved proposal is that it takes both the odometry data and laser scans into consideration which reduces notably the proposals densities uncertainty and allows more efficient sampling. The only problem this approach presents is when the observation likelihood is multimodal. Since the scan matching algorithm maximizes the observation likelihood around the closest local maxima to the initial guess, it is possible that this approximation fails because it misses other additional maxima due to the multimodlity of the likelihood. In other words, the reported local maxima is not the global maxima. However, in reality, the distribution tends to be uni-modal, as reported in \cite{Cyrill}, and so this issue is of little concern in common practices.\\
-Another problem is when the scan matcher fails to report a scan conversion. This is generally because of poor observations or low overlapping areas between scans. For this case in particular, the proposal will only be determined by the raw motion model. This issue, however, is, in reality, not very common.
+Another problem is when the scan matcher fails to report a scan conversion. This is generally because of poor observations or low overlapping areas between scans. For this case in particular, the proposal will only be determined by the raw motion model. This issue, however, is, in reality, not very common either.
 
 \section{RBPF Adaptive resampling}
 
@@ -190,11 +188,11 @@ The key idea behind $N_{eff}$ is that the worse the particle approximation is, t
 The algorithm \ref{RBPF-SLAM} presents the full schema for the improved RBPF utilized in this paper. The steps are as follows:
 \begin{itemize}
 	\item An initial estimate of each particles position $x_t^{(i)}$ is obtained from the previous pose $x_{t-1}^{(i)}$, the odometry measurements $u_{t-1}$ and a realistic approximation of the errors the odometry might propose.
-	\item A scan matching algorithm, in this case an ICP, is executed between the latest laser scan data $z_t$ and a point cloud derived form the latest map generated for that particle. To calculate the point cloud from the map, only that area inside what would be the region of the laser scanner is evaluated. This saves important resources and does not calculate point clouds in regions that cannot be matched with the laser scan data. The rotational and translational vectors derived through the ICP are used to reconstruct a new pose estimate $\dot x_t^{(i)}$ from the motion model estimate $x_t^{(i)}$. Finally, if the scan matcher fails at converging both point clouds, the pose estimate will remain as the one obtained from the motion model
+	\item A scan matching algorithm, in this case an ICP, is executed between the latest laser scan data $z_t$ and a point cloud derived form the latest map generated for that particle. To calculate the point cloud from the map, only that area inside what would be the region of the laser scanner is evaluated. This saves important resources and does not calculate point clouds in regions that cannot be matched with the laser scan data. The rotational and translational vectors derived through the ICP are used to reconstruct a new pose estimate $\dot x_t^{(i)}$ from the motion model estimate $x_t^{(i)}$. Finally, if the scan matcher fails at converging both point clouds, the pose estimate will remain as the one obtained from the motion model.
 	\item A set of sampling points $x_j$ is selected in an interval around $\dot x_t^{(i)}$. The mean and covariance values for creating a Gaussian distribution are calculated as in equations \ref{mu} and \ref{sigma} via a pointwise evaluation of the target proposal. The first half of the target proposal,  $p(x_j|x_{t-1}^{(i)}, u_t)$, is obtained by evaluating the sample $x_j$ in the odometry motion model distribution. The second half of the target distribution, $p(z_t|x_j, m^{(i)})$, is obtained evaluating the observation likelihood for that sample. Several approaches can be taken; this paper has used a point to point comparison between the true scan and the estimated scan a robot in the estimated position in the generated map would see. In this stage the weighing factor $\eta^{(i)}$ is also computed. 
-	\item A new final pose estimate for particle $(i)$ is drawn from the Gaussian approximation $\mathcal{N} (\mu_t^{(i)}, \Sigma_t^{(i)})$ of the improved proposal.
-	\item Update importance weights as in equation \ref{Weights}
-	\item The particles map $m_i$ is updated with the final estimated position $\dot x_t^{(i)}$ and the laser scan data $z_t$.
+	\item A new final pose estimate $\ddot x_t^{(i)}$ for each particle is drawn from the Gaussian approximation $\mathcal{N} (\mu_t^{(i)}, \Sigma_t^{(i)})$ of the improved proposal.
+	\item The importance weights are calculated as in equation \ref{Weights}.
+	\item The particles map $m_i$ is updated with the final estimated position $\ddot x_t^{(i)}$ and the laser scan data $z_t$.
 	\item The resampling stage is carried out depending on the value of $N_{eff}$.
 \end{itemize}
 
@@ -269,9 +267,14 @@ The errors generated via this schema can be seen in Figure \ref{error_estimation
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.37\textwidth]{figures/error_estimation}
-	\caption{Error between the real and estimated \textit{x}, \textit{y} and \textit{theta} values}
+	\caption{Error between the real and estimated \textit{x}, \textit{y} and \textit{theta} values for one particle}
 	\label{error_estimation}
 \end{figure}
+
+\section{Conclusions}
+The simulation results represent a functional and efficient RBPF-SLAM. Error position estimation error for each particle is minimal, and the misalignments in the resulting map are negligible.\\
+Some improvements can still be carried out: the resampling step occurs slightly too often due to using a suboptimal evaluation of $p(z_t|x_j, m^{(i)})$ leading to the motion model distribution affecting in a larger manner the proposal distribution, thus loosing partly the high precision of the laser scan data. Additionally, the implemented \textit{scan matching} technique could be improved. The paper \cite{Cyrill} presents the scan-matcher \textit{'vasco'}, which is part of the Carnegie Mellon Robot Navigation Toolkit (CARMEN) \cite{Carmen}.\\
+Finally, the \textit{MatLab} code implemented has been categorized as user-friendly because of its simplicity in use and the detailed User Manual attached.
 
 % References and end of paper
 \bibliographystyle{aaai}
