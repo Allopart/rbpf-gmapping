@@ -113,6 +113,10 @@ function [xh,pf, P, L] = RBPF(x_true, y, LRS, u, a, pf, Nsamples, resampling_str
                 plot(x_initial_estimate(1,i), x_initial_estimate(2, i), 'db')
                 plot(x_new_sm(1,i), x_new_sm(2,i), 'dr')
                 hold off;
+                
+                % Save each iteration map into as png
+                % str=sprintf('path_images/fig%d.png', pf.k);
+                % saveas(gcf, str)
 
             % Randomize samples around good estimate (x_new_sm) of particle position 
             theta_samples=x_new_sm(3,i);

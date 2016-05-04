@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{Doucet}
+A.~Doucet, J.~de~Freitas, K.~Murphy, and S.~Rusel.
+\newblock Rao-blackwellized particle filtering for dynamic bayesian networks.
+\newblock In {\em Conf. Uncertainty Artif. Intell. Stanford, CA}, pages
+  173--186, 2000.
+
+\bibitem{Murphy}
+K.~Murphy.
+\newblock Bayesian map learning in dynamic environmnets.
+\newblock In {\em Conf. Neural Inf. Process. Syst. Denver, CO}, pages
+  1015--1021, 1999.
+
+\bibitem{ProbabilisticRobotics}
+S.~Thrun, W.~Burgard, and D.~Fox.
+\newblock {\em Probabilistic Robotics}.
+\newblock The MIT Press, 2006.
+
+\end{thebibliography}

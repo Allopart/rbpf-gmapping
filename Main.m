@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 % RAO BLACKWELLIZED PARTICLE FILTER FOR GRID-BASED FAST SALM SIMULATOR
 % 
@@ -22,25 +22,26 @@ close all
 clc
 
 addpath(genpath('rvctools'))
-rng(1)                                          % Adjust the noise realization here (201)
+rng(1)                                          % Adjust the noise realization here
 
 %% Simulation Parameters
 
+% General parameters
 Ts = 1;                                         % Sampling time
-l = 1;                                          % Distance between front and rear axle of robot frame (l*n_cell cm)
 n_cell=10;                                      % Number of cells per meter
+NPC = 3;                                        % Number of particles used
+usable_area = 4*n_cell;                         % Use laser data in 4 meter radius
 sigma_v = [0.01 0.01];                          % Standard deviation of sensor (Holds for up to 20m) (m)
 R1 = [0.1 0;0 0.001];                           % Variance matrix for odometry 
 Nsamples = 10;                                  % Number of samples for Particle Filter
+max_speed=4;                                    % max_speen*n_cell cm/timestep
 
-%LRS_Sensor Structure
+% LRS_Sensor Structure
 LRS.MaxDistance         = 80*n_cell;            % Maximum sensor measurement distance (m/10)
 LRS.Resolution          = 0.5;                  % Sensor resolution (degrees)
 LRS.FoV                 = 180;                  % Sensor field of view (degrees)
 LRS.MaxAngle            = 1.5773;               % extreme angle of laser scanner
 
-% Particle Number
-NPC = 6;                                        % Number of particles used
 
 %% Map Generation
 
@@ -103,7 +104,6 @@ Kh = 0.9;
 %% Generation of a high order polynomial with the drive-through
 % points and a desired velocity as boundary conditions.
 
-max_speed=4;                                    % max_speen*n_cell cm/timestep
 path = mstraj(via,[max_speed, max_speed],[],[via(1,1) via(1,2)],Ts,0); 
 
 switch max_speed                                %Calculated Model Velocity parameters (a) via Motion_Model_Velocity_Test
@@ -120,9 +120,10 @@ end
 
 %% Grid occupancy initialisation
 Nstep=size(path,1);
-security=1.2;                                   % Initialise the grid 560% bigger than the map actually is
+security=1.2;                                   % Initialise the grid 120% bigger than the map actually is
 xg=max(max(map))*security;                      % Length
 yg=xg;                                          % Width
+
 L=0.5*ones(yg,xg);                              % Initialise the probability of grid map
 
 %% Data Initialization
@@ -146,7 +147,7 @@ x0 = [via(1,1),via(1,2),0];                     % Initialize robot pose at the s
  pf.gridsize        = [xg yg];                  % Gridsize
  pf.xh              = zeros(3, Nsim);           % Estiamte of true position
  pf.R1              = R1;                       % Variance matrix for odometry 
- pf.UsableArea      = 4*n_cell;                 % Use laser data in 4 meter radius
+ pf.UsableArea      = usable_area;              % Laser scanner usable area
 
 %% Time step = 1 initialization
 

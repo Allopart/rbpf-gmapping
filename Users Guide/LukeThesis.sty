@@ -1,0 +1,164 @@
+%==================================================================================================
+% LUKE PHD THESIS LAYOUT STYLE FILE
+% ---------------------------------
+% Based upon work by: Henrik Aalborg Nielsen, Thomas Fabricius, Jan Larsen and Finn Kuno
+% Christensen
+% Contact: Luke Herbert (lthhe@imm.dtu.dk)
+%==================================================================================================
+\typeout{----------------------------------------------------}
+\typeout{USING LUKE'S PHD THESIS TEMPLATE 1.2}
+\typeout{----------------------------------------------------}
+%
+%==================================================================================================
+% BASE PACKAGES
+%==================================================================================================
+\usepackage[utf8]{inputenc}                         %Allows input of tex files encoded in UTF8
+\usepackage[T1]{fontenc}                            %Set font encoding for output PDF
+\usepackage[danish,english]{babel}                  %Allows langauge switching (English is default)
+\usepackage{graphicx}                               %Support for including graphics
+\usepackage{xcolor}                                 %Support for using colours
+\usepackage[hang,normalsize,bf]{caption}            %Make pretty captions
+\usepackage{varioref}                               %Enhances references (\vref {label})
+\usepackage{fancyhdr}                               %Pretty headers/footers
+\usepackage{hyperref}                               %References package
+\usepackage{amsmath,amssymb,latexsym}               %AMS and other symbols
+\usepackage{epic,eepic,epsfig,graphics,psfrag}      %Figure/picture packages
+\usepackage{theorem}                                %Allows creation of custom enviroments
+\usepackage{listings}                               %Source code
+%
+%==================================================================================================
+% PAGE GEOMETRY
+%==================================================================================================
+\addtolength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+\pagestyle{myheadings}
+\setlength{\paperwidth}{176mm}  %b5
+\setlength{\paperheight}{250mm} %b5
+\setlength{\textheight}{185mm} % 540pt = 7.5inch = 190.5mm
+\setlength{\topmargin}{-5.4mm}
+\setlength{\headheight}{8mm}
+\setlength{\headsep}{7mm}
+\setlength{\footskip}{10.0mm}
+\setlength{\textwidth}{121.36mm}  % 129.36 mm  % width and margins must add to 176 mm:
+\setlength{\oddsidemargin}{1.24mm} % 1 inch + 1.24 mm = 26.64 mm inside
+\setlength{\evensidemargin}{-5.4mm} % 1 inch - 5.4 mm = 20 mm outside
+%==================================================================================================
+% HEADINGS SETUP
+%==================================================================================================
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\lhead[\fancyplain{}{\sffamily\bfseries\thepage}]%
+      {\fancyplain{}{\sffamily\bfseries\rightmark}}
+\rhead[\fancyplain{}{\sffamily\bfseries\leftmark}]%
+      {\fancyplain{}{\sffamily\bfseries\thepage}}
+\cfoot{}
+%
+%==================================================================================================
+% GENERATE DERIVED THESIS PROPERTIES
+%==================================================================================================
+\newcommand{\derivethesisprops}{
+   \def\ttitle{{\sf\textbf{\thesistitle}}}
+   \def\thesisdef{IMM-\thesisdegree-\thesisyear-\thesisnumber}
+   \def\printversion{print}
+   \ifx\thesisversion\printversion
+      \special{papersize=176mm,250mm}               %DTU-IMM special paper size
+      \hypersetup{pdftitle={\thesistitle},
+         pdfauthor={\thesisauthor},
+         pdfsubject={\thesisdef},
+         pdfkeywords={\thesiskeywords},
+         breaklinks,
+         bookmarksopen,
+         bookmarksnumbered,
+         plainpages=false}
+      \else
+      \hypersetup{pdftitle={\thesistitle},
+         pdfauthor={\thesisauthor},
+         pdfsubject={\thesisdef},
+         pdfkeywords={\thesiskeywords},
+         colorlinks,
+         linkcolor=blue,
+         breaklinks,
+         bookmarksopen,
+         bookmarksnumbered,
+         plainpages=false}
+   \fi
+}
+%
+%==================================================================================================
+% GENERATE PREFRONTMATTER
+%==================================================================================================
+\newcommand{\prefrontmatter}{
+   \pagenumbering{alph}                                %Set prefrontmatter numbering style
+   \thispagestyle{empty}                               %Front page (inside cover)
+   \vspace*{\fill}
+   \begin{center}
+      {\huge\ttitle}\\*[2cm]
+      \LARGE\sf\thesisauthor\\*[2.5cm]
+      \includegraphics[scale=2]{figures/DTU-logo} \\*[1cm]
+      \small\sf Kongens Lyngby \thesisyear\\
+%      \small\sf IMM-\thesisdegree-\thesisyear-\thesisnumber
+   \end{center}
+   \vspace*{\fill}
+   \newpage                                            %Back of front page
+   \thispagestyle{empty}
+   \vspace*{11cm}
+   {\sf Technical University of Denmark}\\
+   {\sf Department of Electrical Engineering}\\
+   {\sf Ørsteds Plads, building 326,}\\
+   {\sf 2800 Kongens Lyngby, Denmark}\\
+   {\sf Phone +45 50285623}\\
+   {\sf adllo@elektro.dtu.dk}\\
+   {\sf https://github.com/Allopart}
+%   \vspace*{2.5cm}
+%   \def\empty{}
+%   {\sf IMM-\thesisdegree-\thesisyear-\thesisnumber}
+}
+%
+%==================================================================================================
+% ENVIROMENTS SETUP
+%==================================================================================================
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}{\theorembodyfont{\rmfamily}
+\newtheorem{definition}[lemma]{Definition}}\theoremheaderfont{\scshape\bfseries}
+\newenvironment{proof}{{\scshape Proof.}}{}
+\newcommand{\qed}{\hfill $\square$ \vspace{5mm}}
+\newtheorem{example}{Example}[chapter]
+%
+%==================================================================================================
+% CHAPTER AND APPENDIX STYLING SETUP
+%==================================================================================================
+\renewcommand{\chaptername}{C h a p t e r }
+\renewcommand{\appendixname}{A p p e n d i x }
+%
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+   \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \large\scshape \@chapapp \space\space \Huge\upshape\thechapter
+        \par\nobreak
+        \vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \flushleft\parbox{\textwidth}{\raggedleft \sffamily\Huge\bfseries  #1}
+     \par\nobreak
+     \vskip 15pt
+     \hrule height 0.4pt
+    \vskip 80\p@
+  }}
+%
+\def\@makeschapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+     \sffamily\huge\bfseries  #1
+     \par\nobreak
+     \vskip 15pt
+     \hrule height 0.4pt
+    \vskip 80\p@
+  }}
+% % % EOF % % %

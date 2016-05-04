@@ -1,0 +1,219 @@
+%==================================================================================================
+%   LUKES THESIS TEMPLATE 1.2
+%   -------------------------
+%   This template is based upon the offcial IMM PhD Thesis template, it is enhanced with a number
+%   of new features and a number of errors have fixed. This template is intended to be complied to
+%   PDF using PDFLATEX and is tested using the MiKTeX 2.9 LaTeX distribution.
+%   It is based on the official DTU-IMM Thesis template by Finn Kuno Christensen in 2009.
+%   Small bugfixes by Kasper Laursen in 2012 and 2013.
+%   Small updates by Finn Kuno Christensen/Henning Christiansen in 2015.
+%   -------------------------
+%   Last Updated: 2015-01-08
+%==================================================================================================
+%
+%==================================================================================================
+% DOCUMENT SETUP
+%==================================================================================================
+\documentclass[10pt,twoside]{book}                  %Official DTU-IMM Thesis document setup
+%
+%Set to 'print' for printed version, use 'net' for online version
+\def\thesisversion{print}
+%
+%==================================================================================================
+% PACKAGES
+%==================================================================================================
+\usepackage{LukeThesis}                             %Import Thesis base style
+\usepackage{wrapfig}
+\usepackage{pdfpages}
+\usepackage{lscape}
+%input{PhDMacros}                                   %Thesis specific macros
+%
+\usepackage{mwe}
+\usepackage{listings}    
+\usepackage{etoolbox}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+
+%%Listings settings
+\definecolor{mygreen}{rgb}{0,0.7,0}
+\definecolor{mygray}{rgb}{0.47,0.47,0.33}
+\definecolor{myorange}{rgb}{0.8,0.4,0}
+\definecolor{mywhite}{rgb}{0.98,0.98,0.98}
+\definecolor{myblue}{rgb}{0.01,0.61,0.98}
+\definecolor{myclearblue}{rgb}{0.04,0.55,0.98}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+
+\newcommand*{\FormatDigit}[1]{\ttfamily\textcolor{black}{#1}}
+%% http://tex.stackexchange.com/questions/32174/listings-package-how-can-i-format-all-numbers
+
+
+\lstdefinestyle{FormattedNumber}{%
+	literate=*{0}{{\FormatDigit{0}}}{1}%
+	{1}{{\FormatDigit{1}}}{1}%
+	{2}{{\FormatDigit{2}}}{1}%
+	{3}{{\FormatDigit{3}}}{1}%
+	{4}{{\FormatDigit{4}}}{1}%
+	{5}{{\FormatDigit{5}}}{1}%
+	{6}{{\FormatDigit{6}}}{1}%
+	{7}{{\FormatDigit{7}}}{1}%
+	{8}{{\FormatDigit{8}}}{1}%
+	{9}{{\FormatDigit{9}}}{1}%
+	{.0}{{\FormatDigit{.0}}}{2}% Following is to ensure that only periods
+	{.1}{{\FormatDigit{.1}}}{2}% followed by a digit are changed.
+	{.2}{{\FormatDigit{.2}}}{2}%
+	{.3}{{\FormatDigit{.3}}}{2}%
+	{.4}{{\FormatDigit{.4}}}{2}%
+	{.5}{{\FormatDigit{.5}}}{2}%
+	{.6}{{\FormatDigit{.6}}}{2}%
+	{.7}{{\FormatDigit{.7}}}{2}%
+	{.8}{{\FormatDigit{.8}}}{2}%
+	{.9}{{\FormatDigit{.9}}}{2}%
+	%{,}{{\FormatDigit{,}}{1}% depends if you want the "," in color
+	{\ }{{ }}{1}% handle the space
+	,%
+}
+
+
+\lstset{%
+	backgroundcolor=\color{mywhite},   
+	basicstyle=\footnotesize,       
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                   
+	commentstyle=\color{mygray}, 
+	deletekeywords={...},           
+	escapeinside={\%*}{*)},          
+	extendedchars=true,              
+	frame=shadowbox,                    
+	keepspaces=true,                 
+	keywordstyle=\color{myorange}, 
+	keywordstyle=[2]\color{mygreen},    
+	language=Octave,                
+	morekeywords={*,...},            
+	numbers=left,                    
+	numbersep=5pt,                   
+	numberstyle=\tiny\color{mygray}, 
+	rulecolor=\color{black},         
+	rulesepcolor=\color{myblue},
+	showspaces=false,                
+	showstringspaces=false,          
+	showtabs=false,                  
+	stepnumber=2,                    
+	stringstyle=\color{blue},    
+	tabsize=2,                       
+	title=\lstname,
+	emphstyle=\color{myclearblue},%  style for emph={} 
+}    
+
+%% language specific settings:
+
+\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
+
+
+\lstdefinestyle{Processing}{%
+	style=FormattedNumber,
+	keywords={int, float, boolean, PVector, color, Integer, String},
+	keywords=[2]{setup, draw, if, else, else if. return, for, true, false, new},%               define keywords
+	morecomment=[l]{//},%             treat // as comments
+	morecomment=[s]{/*}{*/},%         define /* ... */
+	emph={import, radians, void, size, this, println, exit, stroke, strokeWeight, background, smooth, translate, rotateX, rotateY, scale, beginShape, point, endShape, length, vertex, fill, text, toString, get, mult, add, line, pushMatrix, translate, applyMatrix, popMatrix, sub, set, cross, normalize, sqrt, sq, atan2, sin, cos, null, equals, substring, parseInt},%        keywords to emphasize
+}
+
+
+\lstdefinestyle{Arduino}{%
+	style=FormattedNumber,
+	keywords={print, Servo, begin, analogRead, Serial, map, delay, attach, available, readStringUntil, substring, length, toCharArray, write, atoi, println, equals},
+	keywords=[2]{while, if, else, else if, setup, loop, while, return},%               define keywords
+	morecomment=[l]{//},%             treat // as comments
+	morecomment=[s]{/*}{*/},%         define /* ... */
+	emph={const, int, void, String},%        keywords to emphasize
+}
+
+\lstdefinestyle{WWWClass}{%
+	style=FormattedNumber,
+	keywords={var, function, yield},
+	keywords=[2]{while, if, else, else if, setup, loop, while, return},%               define keywords
+	morecomment=[l]{//},%             treat // as comments
+	morecomment=[s]{/*}{*/},%         define /* ... */
+	emph={new, Renderer},%        keywords to emphasize
+}
+
+\newtoggle{InString}{}% Keep track of if we are within a string
+\togglefalse{InString}% Assume not initally in string
+%==================================================================================================
+% THESIS PROPERTIES (Modifiy these fields with your details)
+%==================================================================================================
+\def\thesisauthor{Adrian Llopart Maurin (P.h.D.)}                     %Author
+\def\thesistitle{RBPF-SLAM in \textit{MatLab} \\ Users Guide}               %Title
+\def\thesishandin{05-May}                       %Submission date (Day-Month}
+\def\thesisdegree{P.h.D.}                              %Degree ('B.Eng', 'B.Sc.', 'M.Sc.' or 'PhD')
+\def\thesisyear{2016}                               %Submission year
+\def\thesisnumber{}                             %DTU-IMM Serial number (do not include year)
+\def\thesisISSN{}                          %ISSN number
+\def\thesiskeywords{}  %PDF keywords
+\derivethesisprops                                  %Derive dependent properties
+%
+%==================================================================================================
+% SECTION NUMBERING SETUP
+%==================================================================================================
+\setcounter{tocdepth}{2}                            %2 adds sections up to subsections
+\setcounter{secnumdepth}{3}                         %Subsubsections get a number when this is 3
+%
+%==================================================================================================
+% THESIS STRUCTURE  (Modifiy to include more chapters etc)
+%==================================================================================================
+\begin{document}
+%------------------------
+%Pre-frontmatter material
+%------------------------
+\prefrontmatter
+%--------------------
+%Frontmatter material
+%--------------------
+\frontmatter
+\pagenumbering{roman}                               %Set frontmatter numbering style
+\input{Abstract}   
+\label{Abstract}                                %English summary of Thesis
+\markboth{}{}                                       %Set headings (left)(right)
+                        
+
+%------------------
+% Table of contents
+%------------------
+\newpage\mbox{}\newpage
+\chaptermark{Contents}
+\pdfbookmark{\contentsname}{toc}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\sectionmark{Contents}
+\addtolength{\parskip}{-\baselineskip}
+\tableofcontents
+\addtolength{\parskip}{\baselineskip}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+%-------------
+% Main content
+%-------------
+\mainmatter
+\include{Introduction}
+\include{MapGeneration}
+\include{MotionModel}
+\include{RBPF-SLAM}
+
+%-----------
+% Backmatter
+%-----------
+\backmatter
+\chaptermark{Bibliography}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\sectionmark{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}        %Force addition of Bibliography to TOC
+\bibliographystyle{abbrv}                           %Use alpha codes for references
+\bibliography{References}                           %Bibliography file called
+         
+\end{document}
+% % % EOF % % %
